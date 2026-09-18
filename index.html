@@ -17,14 +17,28 @@
         }
 
         .price-box {
-            position: absolute; /* Отвязываем все блоки друг от друга */
+            position: absolute; 
             display: flex;
             flex-direction: column;
             align-items: flex-end; 
+            width: auto;
         }
 
-        .price-eur { font-size: 32px; font-weight: 600; color: #4a4a4a; line-height: 1; }
-        .price-uah { font-size: 22px; color: #888888; margin-top: 4px; line-height: 1; }
+        .price-eur { 
+            font-size: 32px; 
+            font-weight: 600; 
+            color: #4a4a4a; 
+            line-height: 1; 
+            white-space: nowrap; /* Жестко запрещаем перенос значка евро на новую строку */
+        }
+        
+        .price-uah { 
+            font-size: 22px; 
+            color: #888888; 
+            margin-top: 4px; 
+            line-height: 1; 
+            white-space: nowrap; /* Жестко запрещаем перенос гривен на новую строку */
+        }
     </style>
 </head>
 <body>
@@ -32,24 +46,20 @@
     <div id="container"></div>
 
     <script>
-        // СНАЙПЕРСКАЯ НАСТРОЙКА КООРДИНАТ
-        // top: отступ сверху вниз (в процентах)
-        // left: отступ слева направо (в процентах)
-        
+        // Идеально ровный шаг в 15% между строками (31 -> 46 -> 61 -> 76)
         const prices = [
-            // --- ЛЕВАЯ КОЛОНКА (Номера) ---
-            // left: 45 означает, что правый край текста упрется ровно в 45% ширины экрана (перед вертикальной линией)
-            { eur: 185, top: 28, left: 45 }, // Apartment 1-bedroom
-            { eur: 220, top: 46, left: 45 }, // Apartment 2-bedroom
-            { eur: 230, top: 64, left: 45 }, // Suite apartment 2-bedroom
-            { eur: 25,  top: 83, left: 45 }, // 1 extra person
+            // --- ЛЕВАЯ КОЛОНКА ---
+            // left: 43 (чуть отодвинули от центральной полосы)
+            { eur: 185, top: 31, left: 43 }, 
+            { eur: 220, top: 46, left: 43 }, 
+            { eur: 230, top: 61, left: 43 }, 
+            { eur: 25,  top: 76, left: 43 }, 
 
-            // --- ПРАВАЯ КОЛОНКА (Доп. услуги) ---
-            // left: 95 означает, что правый край текста упрется в 95% ширины экрана
-            { eur: 18,  top: 28, left: 95 }, // Breakfast
-            { eur: 15,  top: 46, left: 95 }, // Extra charge for animal
-            { eur: 12,  top: 64, left: 95 }, // Parking
-            { eur: 15,  top: 83, left: 95 }  // Extra cleaning
+            // --- ПРАВАЯ КОЛОНКА ---
+            { eur: 18,  top: 31, left: 95 }, 
+            { eur: 15,  top: 46, left: 95 }, 
+            { eur: 12,  top: 61, left: 95 }, 
+            { eur: 15,  top: 76, left: 95 }  
         ];
 
         const container = document.getElementById('container');
@@ -64,13 +74,8 @@
                 const div = document.createElement('div');
                 div.className = 'price-box';
                 
-                // Задаем координаты
                 div.style.top = item.top + '%';
                 div.style.left = item.left + '%';
-                
-                // МАГИЯ: Сдвигаем блок так, чтобы заданные координаты указывали 
-                // ровно на ПРАВЫЙ ЦЕНТР текстового блока. Так текст всегда будет
-                // аккуратно прижат к вертикальной линии на вашем фоне.
                 div.style.transform = 'translate(-100%, -50%)'; 
 
                 div.innerHTML = `
