@@ -20,8 +20,8 @@
             position: absolute; 
             display: flex;
             flex-direction: column;
-            align-items: flex-end; 
-            width: auto;
+            /* ВАЖНО: Выравниваем текст по левому краю */
+            align-items: flex-start; 
         }
 
         .price-eur { 
@@ -29,7 +29,7 @@
             font-weight: 600; 
             color: #4a4a4a; 
             line-height: 1; 
-            white-space: nowrap; /* Жестко запрещаем перенос значка евро на новую строку */
+            white-space: nowrap; 
         }
         
         .price-uah { 
@@ -37,7 +37,9 @@
             color: #888888; 
             margin-top: 4px; 
             line-height: 1; 
-            white-space: nowrap; /* Жестко запрещаем перенос гривен на новую строку */
+            white-space: nowrap; 
+            /* Если захотите сдвинуть гривны чуть правее, чтобы они были под цифрами, а не под звездочкой, раскомментируйте строку ниже: */
+            /* margin-left: 12px; */
         }
     </style>
 </head>
@@ -46,20 +48,20 @@
     <div id="container"></div>
 
     <script>
-        // Идеально ровный шаг в 15% между строками (31 -> 46 -> 61 -> 76)
         const prices = [
             // --- ЛЕВАЯ КОЛОНКА ---
-            // left: 43 (чуть отодвинули от центральной полосы)
-            { eur: 185, top: 31, left: 43 }, 
-            { eur: 220, top: 46, left: 43 }, 
-            { eur: 230, top: 61, left: 43 }, 
-            { eur: 25,  top: 76, left: 43 }, 
+            // left: 39 (ставим старт текста ровно справа от первой линии)
+            { eur: 185, top: 31, left: 39 }, 
+            { eur: 220, top: 46, left: 39 }, 
+            { eur: 230, top: 61, left: 39 }, 
+            { eur: 25,  top: 76, left: 39 }, 
 
             // --- ПРАВАЯ КОЛОНКА ---
-            { eur: 18,  top: 31, left: 95 }, 
-            { eur: 15,  top: 46, left: 95 }, 
-            { eur: 12,  top: 61, left: 95 }, 
-            { eur: 15,  top: 76, left: 95 }  
+            // left: 89 (ставим старт текста ровно справа от второй линии)
+            { eur: 18,  top: 31, left: 89 }, 
+            { eur: 15,  top: 46, left: 89 }, 
+            { eur: 12,  top: 61, left: 89 }, 
+            { eur: 15,  top: 76, left: 89 }  
         ];
 
         const container = document.getElementById('container');
@@ -76,7 +78,9 @@
                 
                 div.style.top = item.top + '%';
                 div.style.left = item.left + '%';
-                div.style.transform = 'translate(-100%, -50%)'; 
+                
+                // ТЕПЕРЬ ТЕКСТ РАСТЕТ ВПРАВО
+                div.style.transform = 'translate(0%, -50%)'; 
 
                 div.innerHTML = `
                     <div class="price-eur">*${eurFormatted} €</div>
