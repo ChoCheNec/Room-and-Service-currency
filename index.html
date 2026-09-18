@@ -20,7 +20,6 @@
             position: absolute; 
             display: flex;
             flex-direction: column;
-            /* ВАЖНО: Выравниваем текст по левому краю */
             align-items: flex-start; 
         }
 
@@ -38,8 +37,6 @@
             margin-top: 4px; 
             line-height: 1; 
             white-space: nowrap; 
-            /* Если захотите сдвинуть гривны чуть правее, чтобы они были под цифрами, а не под звездочкой, раскомментируйте строку ниже: */
-            /* margin-left: 12px; */
         }
     </style>
 </head>
@@ -49,19 +46,17 @@
 
     <script>
         const prices = [
-            // --- ЛЕВАЯ КОЛОНКА ---
-            // left: 39 (ставим старт текста ровно справа от первой линии)
-            { eur: 185, top: 31, left: 39 }, 
-            { eur: 220, top: 46, left: 39 }, 
-            { eur: 230, top: 61, left: 39 }, 
-            { eur: 25,  top: 76, left: 39 }, 
+            // --- ЛЕВАЯ КОЛОНКА (адаптирована по аналогии с правой) ---
+            { eur: 185, top: 31, left: 45 }, 
+            { eur: 220, top: 46, left: 45 }, 
+            { eur: 230, top: 61, left: 45 }, 
+            { eur: 25,  top: 76, left: 45 }, 
 
-            // --- ПРАВАЯ КОЛОНКА ---
-            // left: 89 (ставим старт текста ровно справа от второй линии)
-            { eur: 18,  top: 31, left: 89 }, 
-            { eur: 15,  top: 46, left: 89 }, 
-            { eur: 12,  top: 61, left: 89 }, 
-            { eur: 15,  top: 76, left: 89 }  
+            // --- ПРАВАЯ КОЛОНКА (сдвинута чуть правее и выровнена для всех ячеек) ---
+            { eur: 18,  top: 31, left: 90.5 }, 
+            { eur: 15,  top: 46, left: 90.5 }, 
+            { eur: 12,  top: 61, left: 90.5 }, 
+            { eur: 15,  top: 76, left: 90.5 }  
         ];
 
         const container = document.getElementById('container');
@@ -78,8 +73,6 @@
                 
                 div.style.top = item.top + '%';
                 div.style.left = item.left + '%';
-                
-                // ТЕПЕРЬ ТЕКСТ РАСТЕТ ВПРАВО
                 div.style.transform = 'translate(0%, -50%)'; 
 
                 div.innerHTML = `
